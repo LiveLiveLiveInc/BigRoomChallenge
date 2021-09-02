@@ -1,0 +1,2 @@
+# BigRoomChallenge
+Computer vision challenges
