@@ -66,8 +66,8 @@ string type2str(int type)
 void uyvy2rgb(unsigned char *yuv, unsigned char *bgr, int w, int h)
 {
     int i, j;
-    register int y0, y1, u, v;
-    register int r, g, b;
+    int y0, y1, u, v;
+    int r, g, b;
     int NumPixels = w * h;
 
     for (i = 0, j = 0; i < (NumPixels << 1); i += 4, j += 6)
@@ -289,6 +289,15 @@ int main(int argc, char **argv)
     uyvy2rgb(puyvy, bgr.data, img.cols, img.rows);
     cv::namedWindow("uyvy2rgb", cv::WINDOW_AUTOSIZE);
     cv::imshow("uyvy2rgb", bgr);
+
+
+    //RV: Debug
+    cv::Mat rv_yuv(img.rows, img.cols, CV_8UC2, puyvy, img.cols * 2);
+    cv::Mat rv_bgr;
+    cv::cvtColor(rv_yuv, rv_bgr, cv::COLOR_YUV2BGR_UYVY);
+    cv::namedWindow("rv_bgr", cv::WINDOW_AUTOSIZE);
+    cv::imshow("rv_bgr", rv_bgr);
+    
 
     //Resize the original image
     int resize_w = img.cols / 2;
